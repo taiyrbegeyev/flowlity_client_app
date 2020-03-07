@@ -24,6 +24,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import Chart from 'components/Chart'
 import SelectProducts from 'components/SelectProducts'
 import Orders from 'components/Orders'
+import UploadProduct from 'components/UploadProduct'
 
 function Copyright() {
   return (
@@ -240,7 +241,7 @@ class Dashboard extends Component {
                 <Grid container spacing={3}>
                   <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                      <Orders />
+                      <UploadProduct />
                     </Paper>
                   </Grid>
                 </Grid>
