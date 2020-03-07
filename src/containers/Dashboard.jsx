@@ -137,8 +137,10 @@ class Dashboard extends Component {
     })
   }
 
-  handleTabs = () => {
-    
+  handleTabs = (tab) => {
+    this.setState({
+      currentTab: tab
+    })
   }
 
   render() {
@@ -179,13 +181,21 @@ class Dashboard extends Component {
           </div>
           <Divider />
           <List>
-            <ListItem button>
+            <ListItem
+              button
+              onClick={(e) => this.handleTabs('dashboard')}
+              selected={currentTab === 'dashboard'}
+            >
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItem>
-            <ListItem button>
+            <ListItem
+              button
+              onClick={(e) => this.handleTabs('orders')}
+              selected={currentTab === 'orders'}
+            >
               <ListItemIcon>
                 <ShoppingCartIcon />
               </ListItemIcon>
