@@ -25,6 +25,7 @@ import Chart from 'components/Chart'
 import SelectProducts from 'components/SelectProducts'
 import Orders from 'components/Orders'
 import UploadProduct from 'components/UploadProduct'
+import axios from 'axios'
 
 function Copyright() {
   return (
@@ -123,7 +124,21 @@ const useStyles = theme => ({
 class Dashboard extends Component {
   state = {
     isDrawerOpen: true,
-    currentTab: 'dashboard'
+    currentTab: 'dashboard',
+    products: [],
+    currentProduct: null
+  }
+
+  componentDidMount = async () => {
+    try {
+      let res = await axios.get('https://us-central1-flowlity-4b6c5.cloudfunctions.net/app/api/read')
+      this.setState({
+        products: res.data
+      })
+    }
+    catch(err) {
+      console.log(err)
+    }
   }
 
   handleDrawerOpen = () => {
@@ -144,11 +159,17 @@ class Dashboard extends Component {
     })
   }
 
+  callBackfunction = (value) => {
+    this.setState({
+      currentProduct: value
+    })
+  }
+
   render() {
-    const { isDrawerOpen, currentTab } = this.state
+    const { isDrawerOpen, currentTab, products, currentProduct } = this.state
     const { classes } = this.props
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
-    
+
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -215,17 +236,26 @@ class Dashboard extends Component {
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={8} lg={9}>
                     <Paper className={fixedHeightPaper}>
-                      <Chart />
+                      <Chart
+                        products
+                        currentProduct
+                      />
                     </Paper>
                   </Grid>
                   <Grid item xs={12} md={4} lg={3}>
                     <Paper className={fixedHeightPaper}>
-                      <SelectProducts />
+                      <SelectProducts
+                        products
+                        parentCallBack={this.callBackfunction}
+                      />
                     </Paper>
                   </Grid>
                   <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                      <Orders />
+                      <Orders
+                        products
+                        currentProduct
+                      />
                     </Paper>
                   </Grid>
                 </Grid>
@@ -241,7 +271,7 @@ class Dashboard extends Component {
                 <Grid container spacing={3}>
                   <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                      <UploadProduct />
+                      <UploadProduct/>
                     </Paper>
                   </Grid>
                 </Grid>
