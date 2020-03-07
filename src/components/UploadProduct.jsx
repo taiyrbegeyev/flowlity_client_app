@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import Title from './Title'
+import axios from 'axios'
 
 const useStyles = theme => ({
   root: {
@@ -13,15 +16,21 @@ const useStyles = theme => ({
     flexWrap: 'wrap',
     width: 400,
   },
+  button: {
+    width: 150,
+    margin: theme.spacing(2),
+  },
 })
 
+const initialState = {
+  product_id: '',
+  product_name: '',
+  date: '',
+  inventory_level: ''
+};
+
 class UploadProduct extends Component {
-  state = {
-    productId: '',
-    productName: '',
-    productDate: '',
-    productInventoryLevel: ''
-  }
+  state = initialState
 
   handleInputBox = (e) => {
     this.setState({
@@ -29,41 +38,66 @@ class UploadProduct extends Component {
     })
   }
 
+  handleSubmit = async (e) => {
+    e.preventDefault()
+    const { product_id, product_name, date, inventory_level } = this.state
+    try {
+      await axios.post('https://us-central1-flowlity-4b6c5.cloudfunctions.net/app/api/create', {
+        product_id: product_id,
+        product_name: product_name,
+        date: date,
+        inventory_level: inventory_level
+      })
+    }
+    catch(err) {
+      console.log(err)
+    }
+  }
+
   render() {
     const { classes } = this.props
     return (
       <React.Fragment>
         <Title>Upload Product</Title>
-        <form className={classes.root} noValidate autoComplete="off">
+        <div className={classes.root}>
           <TextField
-            id="productId"
+            id="product_id"
             label="Product ID"
             variant="outlined"
             onChange={this.handleInputBox}
             required
           />
           <TextField
-            id="productName"
+            id="product_name"
             label="Product Name"
             variant="outlined"
             onChange={this.handleInputBox}
             required
           />
           <TextField
-            id="productDate"
+            id="date"
             label="Product Date"
             variant="outlined"
             onChange={this.handleInputBox}
             required
           />
           <TextField
-            id="productInventoryLevel"
+            id="inventory_level"
             label="Product Inventory Level"
             variant="outlined"
             onChange={this.handleInputBox}
             required
           />
-        </form>
+          <Button
+            variant="contained"
+            color="default"
+            className={classes.button}
+            startIcon={<CloudUploadIcon />}
+            onClick={this.handleSubmit}
+          >
+            Upload
+          </Button>
+        </div>
       </React.Fragment>
     )
   }
