@@ -126,7 +126,7 @@ class Dashboard extends Component {
     isDrawerOpen: true,
     currentTab: 'dashboard',
     products: [],
-    currentProduct: null
+    currentProduct: []
   }
 
   componentDidMount = async () => {
