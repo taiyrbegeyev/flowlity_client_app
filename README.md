@@ -39,7 +39,7 @@ Simple web application that allows inventory level visualization.
 
 ## Features
 * A graph of inventory level(y-axis) vs. date(x-axis) of the selected product 
-* A graph of inventory level(y-axis) vs. date(x-axis) of the selected product 
+* Table of data filtered on the selected product: product_id; product_name; date; inventory_level
 * Dropdown/Select option to choose the product ID or product name to visualize
 * Add own products and corresponding information
 
