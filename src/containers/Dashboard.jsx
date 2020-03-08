@@ -141,6 +141,21 @@ class Dashboard extends Component {
     }
   }
 
+  componentDidUpdate = async(prevProps, prevState) => {
+    const newTab = this.state.currentTab !== prevState.currentTab
+    if (newTab && this.state.currentTab === 'dashboard') {
+      try {
+        let res = await axios.get('https://us-central1-flowlity-4b6c5.cloudfunctions.net/app/api/read')
+        this.setState({
+          products: res.data
+        })
+      }
+      catch(err) {
+        console.log(err)
+      }
+    }
+  }
+
   handleDrawerOpen = () => {
     this.setState({
       isDrawerOpen: true
@@ -169,7 +184,6 @@ class Dashboard extends Component {
     const { isDrawerOpen, currentTab, products, currentProduct } = this.state
     const { classes } = this.props
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
-
     return (
       <div className={classes.root}>
         <CssBaseline />

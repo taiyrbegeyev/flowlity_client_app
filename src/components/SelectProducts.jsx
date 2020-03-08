@@ -32,7 +32,7 @@ class SelectProducts extends Component {
 
   render() {
     const { classes, products } = this.props
-    
+
     return (
       <div>
         <Title>Select Product</Title>
