@@ -237,15 +237,14 @@ class Dashboard extends Component {
                   <Grid item xs={12} md={8} lg={9}>
                     <Paper className={fixedHeightPaper}>
                       <Chart
-                        products
-                        currentProduct
+                        currentProduct={currentProduct}
                       />
                     </Paper>
                   </Grid>
                   <Grid item xs={12} md={4} lg={3}>
                     <Paper className={fixedHeightPaper}>
                       <SelectProducts
-                        products
+                        products={products}
                         parentCallBack={this.callBackfunction}
                       />
                     </Paper>
@@ -253,8 +252,7 @@ class Dashboard extends Component {
                   <Grid item xs={12}>
                     <Paper className={classes.paper}>
                       <Orders
-                        products
-                        currentProduct
+                        currentProduct={currentProduct}
                       />
                     </Paper>
                   </Grid>

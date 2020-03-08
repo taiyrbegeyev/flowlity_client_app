@@ -45,7 +45,7 @@ class SelectProducts extends Component {
           >
             {
               products.map((product, index) => (
-                <MenuItem value={product.product_id} key={index}>{product.product_id + '-' + product.product_name}</MenuItem>
+                <MenuItem value={product} key={index}>{product.product_id + '-' + product.product_name}</MenuItem>
               ))
             }
           </Select>
